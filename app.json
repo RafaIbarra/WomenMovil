@@ -4,25 +4,35 @@
     "slug": "WomenPeriodApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logowomen.png",
+    "notification": {
+      "icon": "./assets/logonotification.png",
+      "color": "#fecdd3"
+    },
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/logowomen.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#fecdd3"
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/logowomen.png",
+        "backgroundColor": "#fecdd3"
+      },
+      "package": "com.rafael86.WomenPeriodApp"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/logowomen.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f76653c9-89c5-4e17-b8d5-e996af740da9"
+      }
     }
   }
 }
