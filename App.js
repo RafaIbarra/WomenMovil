@@ -13,13 +13,13 @@ import * as SecureStore from "expo-secure-store";
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
-  // const [notificationData, setNotificationData] = useState(null)
+  const [notificationData, setNotificationData] = useState(null)
   
-  const [notificationData, setNotificationData] = useState(
-    {
-      title:'Hola',
-      body:'Prueba de notificacion'
-  });
+  // const [notificationData, setNotificationData] = useState(
+  //   {
+  //     title:'Hola',
+  //     body:'Prueba de notificacion'
+  // });
   useEffect(() => {
     
     const loadFonts = async () => {

@@ -5,29 +5,28 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/logowomen.png",
-    "notification": {
-      "icon": "./assets/logonotification.png",
-      "color": "#fecdd3"
-    },
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/logowomen.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#fecdd3"
-    },
-    "ios": {
-      "supportsTablet": true
-    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/logonotification.png",
+          "color": "#fecdd3"
+        }
+      ]
+    ],
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/logowomen.png",
         "backgroundColor": "#fecdd3"
       },
-      "package": "com.rafael86.WomenPeriodApp"
-    },
-    "web": {
-      "favicon": "./assets/logowomen.png"
+      "package": "com.rafael86.WomenPeriodApp",
+      "googleServicesFile": "./google-services.json",
+      "useNextNotificationsApi": true,
+      "permissions": [
+        "RECEIVE_BOOT_COMPLETED",
+        "WAKE_LOCK"
+      ]
     },
     "extra": {
       "eas": {

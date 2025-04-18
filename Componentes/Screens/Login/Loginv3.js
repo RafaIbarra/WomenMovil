@@ -13,6 +13,7 @@ import * as SecureStore from "expo-secure-store";
 
 import { AuthContext } from "../../../AuthContext";
 import { useTheme ,DefaultTheme as NavigationDefaultTheme} from '@react-navigation/native';
+import Constants from 'expo-constants';
 export default function Loginv3({ navigation  }){
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const { navigate } = useNavigation();
@@ -70,39 +71,89 @@ export default function Loginv3({ navigation  }){
     setMostrarContrasena(!mostrarContrasena);
   };
 
+ // PARA DESARROLLO 
+  // const getPushToken = async () => {
+  //   try {
+  //     // Verificar el estado del permiso de notificaciones
+  //     let notificationPermission = await SecureStore.getItemAsync("notificationPermission");
+  
+  //     // Si no hay permiso, solicitarlo
+  //     if (notificationPermission !== "granted") {
+  //       const { status } = await Notifications.requestPermissionsAsync();
+  //       notificationPermission = status; // Actualizar el estado del permiso
+  //       await SecureStore.setItemAsync("notificationPermission", status); // Guardar el nuevo estado
+  //     }
+  
+  //     // Si el permiso es concedido, obtener el token
+  //     if (notificationPermission === "granted") {
+  //       // const token = (await Notifications.getExpoPushTokenAsync()).data;
+  //       const token = (await Notifications.getExpoPushTokenAsync({
+  //         projectId: "f76653c9-89c5-4e17-b8d5-e996af740da9"
+  //       })).data;
+  //       if (token) {
+  //         Alert.alert(
+  //           `El token generado es ${token}`
+           
+  //         );
+  //         return token; // Devolver el token
+  //       }
+  //     } else {
+  //       Alert.alert(
+  //         "Permisos de notificaciones",
+  //         "Por favor, habilita los permisos de notificaciones para recibir alertas importantes."
+  //       );
+  //     }
+  
+  //     // Si no hay permiso o no se pudo obtener el token, retornar null
+  //     return null;
+  //   } catch (error) {
+  //     console.error("Error al obtener el token de notificación:", error);
+  //     return null; // Retornar null en caso de error
+  //   }
+  // };
+
+  // PARA PRODUCCION
   const getPushToken = async () => {
     try {
-      // Verificar el estado del permiso de notificaciones
+     
+      
+      // const { status } = await Notifications.requestPermissionsAsync();
+      //if (status !== 'granted') return null;
+      let token=null
       let notificationPermission = await SecureStore.getItemAsync("notificationPermission");
-  
-      // Si no hay permiso, solicitarlo
+
       if (notificationPermission !== "granted") {
         const { status } = await Notifications.requestPermissionsAsync();
         notificationPermission = status; // Actualizar el estado del permiso
         await SecureStore.setItemAsync("notificationPermission", status); // Guardar el nuevo estado
       }
-  
-      // Si el permiso es concedido, obtener el token
+
+      
       if (notificationPermission === "granted") {
-        const token = (await Notifications.getExpoPushTokenAsync()).data;
-        if (token) {
-          return token; // Devolver el token
-        }
+         token = (await Notifications.getExpoPushTokenAsync({
+          projectId: "f76653c9-89c5-4e17-b8d5-e996af740da9"
+        })).data;
+        
       } else {
         Alert.alert(
           "Permisos de notificaciones",
           "Por favor, habilita los permisos de notificaciones para recibir alertas importantes."
         );
       }
-  
-      // Si no hay permiso o no se pudo obtener el token, retornar null
-      return null;
+
+      
+      
+      return token
+      
     } catch (error) {
-      console.error("Error al obtener el token de notificación:", error);
-      return null; // Retornar null en caso de error
+      Alert.alert(
+        'Error', 
+        `No se pudo configurar notificaciones: ${error.message}`,
+        [{ text: 'OK' }]
+      );
+      return null;
     }
   };
-
   const ingresar= async ()=>{
     const pushToken = await getPushToken();
     // console.log('el token obtenido es, ', pushToken)
